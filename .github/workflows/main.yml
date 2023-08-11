@@ -4,7 +4,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Make release zip
       run: |
         FONT_VERSION=$(cat version.json | jq -r '.version')
@@ -16,16 +16,48 @@ jobs:
         wget https://github.com/topjohnwu/Magisk/raw/master/scripts/module_installer.sh -O META-INF/com/google/android/update-binary
         zip -9 -x "*.git*" -x "extra/*" -x "extra" -r ../Plangothic-magisk-module.zip ./
         sha256sum ../Plangothic-magisk-module.zip > ../Plangothic-magisk-module.zip.sha256sum
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        files: |
-          ../Plangothic-magisk-module.zip
-          ../Plangothic-magisk-module.zip.sha256sum
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
         name: Plangothic-magisk-module
-        path: ./
+        path: |
+          ../Plangothic-magisk-module.zip
+          ../Plangothic-magisk-module.zip.sha256sum
+  
+  nightly-release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/') != true
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: Plangothic-magisk-module
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "nightly-release"
+          prerelease: true
+          title: "Test build"
+          files: |
+            Plangothic-magisk-module.zip
+            Plangothic-magisk-module.zip.sha256sum
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: Plangothic-magisk-module
+
+      - name: Release Action
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            Plangothic-magisk-module.zip
+            Plangothic-magisk-module.zip.sha256sum
+          body_path: extra/changelog_latest.md
