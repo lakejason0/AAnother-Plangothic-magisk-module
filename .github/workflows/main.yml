@@ -16,12 +16,15 @@ jobs:
         wget https://github.com/topjohnwu/Magisk/raw/master/scripts/module_installer.sh -O META-INF/com/google/android/update-binary
         zip -9 -x "*.git*" -x "extra/*" -x "extra" -r ../Plangothic-magisk-module.zip ./
         sha256sum ../Plangothic-magisk-module.zip > ../Plangothic-magisk-module.zip.sha256sum
+        mkdir -p build
+        cp ../Plangothic-magisk-module.zip build/
+        cp ../Plangothic-magisk-module.zip.sha256sum build/
     - uses: actions/upload-artifact@v3
       with:
         name: Plangothic-magisk-module
         path: |
-          ../Plangothic-magisk-module.zip
-          ../Plangothic-magisk-module.zip.sha256sum
+          build/Plangothic-magisk-module.zip
+          build/Plangothic-magisk-module.zip.sha256sum
   
   nightly-release:
     needs: build
