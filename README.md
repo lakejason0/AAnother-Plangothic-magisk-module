@@ -9,11 +9,11 @@
 
 ## 模块下载
 
-[请进入 Releases 页面下载](https://github.com/Cccc-owo/Another-Plangothic-magisk-module/releases)
+[请进入 Releases 页面下载](https://github.com/lakejason0/AAnother-Plangothic-magisk-module/releases)
 
 ## 注意事项
 
-- 脚本命令并不适用于所有机型和系统，由于脚本直接参考了 simonsmh 制作的模块，其适配程度应当大致相同。建议参考 lxgw 编写的[CJK 字体 Magisk 模块模板 - 兼容性调整](https://github.com/lxgw/advanced-cjk-font-magisk-module-template#%E5%85%BC%E5%AE%B9%E6%80%A7%E8%B0%83%E6%95%B4-%E4%BB%85%E4%BE%9B%E5%8F%82%E8%80%83) 和 [simonsmh 制作的 notocjk 模块](https://github.com/simonsmh/notocjk) 内的说明，因修改文件造成的手机故障本人概不负责。
+- 脚本命令并不适用于所有机型和系统，由于脚本直接参考了 simonsmh 制作的模块，其适配程度应当大致相同。建议参考 lxgw 编写的 [CJK 字体 Magisk 模块模板 - 兼容性调整](https://github.com/lxgw/advanced-cjk-font-magisk-module-template#%E5%85%BC%E5%AE%B9%E6%80%A7%E8%B0%83%E6%95%B4-%E4%BB%85%E4%BE%9B%E5%8F%82%E8%80%83) 和 [simonsmh 制作的 notocjk 模块](https://github.com/simonsmh/notocjk) 内的说明，因修改文件造成的手机故障本人概不负责。
 - 请勿将本模块用于商业用途。
 
 ## 字体来源
