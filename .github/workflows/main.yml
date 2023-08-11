@@ -1,0 +1,33 @@
+name: Upload zip
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install jq
+      run: sudo apt-get install jq
+    - uses: actions/checkout@v2
+    - name: Make release zip
+      run: |
+        FONT_VERSION=$(cat version.json | jq -r '.version')
+        FONT_P1_URL="https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic-Project/releases/download/${FONT_VERSION}/PlangothicP1-Regular.allideo.ttf"
+        FONT_P2_URL="https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic-Project/releases/download/${FONT_VERSION}/PlangothicP2-Regular.ttf"
+        mkdir -p system/fonts
+        wget "$FONT_P1_URL" -O system/fonts/PlangothicP1-Regular.allideo.ttf
+        wget "$FONT_P2_URL" -O system/fonts/PlangothicP2-Regular.ttf
+        wget https://github.com/topjohnwu/Magisk/raw/master/scripts/module_installer.sh -O META-INF/com/google/android/update-binary
+        zip -9 -x "*.git*" -x "extra/*" -x "extra" -r ../Plangothic-magisk-module.zip ./
+        sha256sum ../Plangothic-magisk-module.zip > ../Plangothic-magisk-module.zip.sha256sum
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          ../Plangothic-magisk-module.zip
+          ../Plangothic-magisk-module.zip.sha256sum
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/upload-artifact@v1
+      with:
+        name: Plangothic-magisk-module
+        path: ./

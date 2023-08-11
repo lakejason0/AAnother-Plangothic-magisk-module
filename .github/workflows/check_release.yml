@@ -1,0 +1,48 @@
+name: Check for New Release
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # Run every day
+
+jobs:
+  check-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Check out this repository
+
+      - name: Install jq
+        run: sudo apt-get install jq
+
+      - name: Check for New Release
+        run: |
+          echo "Checking for new releases..."
+          # Use curl to fetch release data from the other repository
+          LATEST_RELEASE=$(curl -s https://api.github.com/repos/Fitzgerald-Porthmouth-Koenigsegg/Plangothic-Project/releases/latest | jq -r '.tag_name')
+
+          # Read the current version from version.json
+          CURRENT_VERSION=$(cat version.json | jq -r '.version')
+
+          # Compare the latest release with the current version
+          if [ "$LATEST_RELEASE" != "$CURRENT_VERSION" ]; then
+            echo "New release found: $LATEST_RELEASE"
+            
+            # Update version.json with the latest version and increment versionCode
+            NEW_VERSION_CODE=$(( $(cat version.json | jq -r '.versionCode') + 1 ))
+            ZIP_URL="https://github.com/lakejason0/AAnother-Plangothic-magisk-module/releases/download/$LATEST_RELEASE/Plangothic-magisk-module.zip"
+            NEW_CONTENT="{\"version\": \"$LATEST_RELEASE\", \"versionCode\": $NEW_VERSION_CODE, \"zipUrl\": \"$ZIP_URL\", \"changelog\": \"https://raw.githubusercontent.com/lakejason0/AAnother-Plangothic-magisk-module/main/extra/changelog.md\"}"
+            echo "$NEW_CONTENT" > version.json
+            sed -i "s/version=.*/version=$LATEST_RELEASE/" module.prop
+            sed -i "s/versionCode=.*/versionCode=$NEW_VERSION_CODE/" module.prop
+
+            echo "# $LATEST_RELEASE\nBump version to `$LATEST_RELEASE`.\n" >> extra\changelog.md
+
+            git config user.name "GitHub Actions"
+            git config user.email "actions@users.noreply.github.com"
+            git commit -a -m "Bump version of Plangothic"
+            git push
+
+          else
+            echo "No new release found."
+          fi
