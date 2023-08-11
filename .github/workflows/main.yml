@@ -4,8 +4,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Install jq
-      run: sudo apt-get install jq
     - uses: actions/checkout@v2
     - name: Make release zip
       run: |
