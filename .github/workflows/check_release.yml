@@ -34,8 +34,8 @@ jobs:
             sed -i "s/version=.*/version=$LATEST_RELEASE/" module.prop
             sed -i "s/versionCode=.*/versionCode=$NEW_VERSION_CODE/" module.prop
 
-            cat extra\changelog_latest.md >> extra\changelog.md
-            echo "\n# $LATEST_RELEASE\nBump version to `$LATEST_RELEASE`.\n" > extra\changelog_latest.md
+            cat extra/changelog_latest.md >> extra/changelog.md
+            echo "\n# $LATEST_RELEASE\nBump version to `$LATEST_RELEASE`.\n" > extra/changelog_latest.md
 
             git config user.name "GitHub Actions"
             git config user.email "actions@users.noreply.github.com"
