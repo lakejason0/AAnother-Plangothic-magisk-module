@@ -26,7 +26,7 @@
 
 ## 鸣谢
 
-- [Fitzgerald Yu](https://github.com/Fitzgerald-Porthmouth-Koenigsegg) 主持制作并发布「遍黑体」字体文件
+- [Fitzgerald Yu](https://github.com/Fitzgerald-Porthmouth-Koenigsegg) 主持制作并发布“遍黑体”字体文件
 - [Cccc-owo](https://github.com/Cccc-owo) 编写的 CI 配置等
 - [simonsmh](https://github.com/simonsmh) 编写的模块脚本及 CI 配置等
 - [lxgw](https://github.com/lxgw) 🔽
