@@ -27,6 +27,11 @@ jobs:
           CURRENT_VERSION=$(cat version.json | jq -r '.version')
 
           # Compare the latest release with the current version
+          if [ "$LATEST_RELEASE" == "null" ]; then
+            echo "New release is null, skipping"
+            exit 1
+          fi
+
           if [ "$LATEST_RELEASE" != "$CURRENT_VERSION" ]; then
             echo "New release found: $LATEST_RELEASE"
             
