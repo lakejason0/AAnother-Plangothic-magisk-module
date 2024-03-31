@@ -7,6 +7,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Make release zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
       run: |
         FONT_VERSION=$(cat version.json | jq -r '.version')
         FONT_P1_URL="https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic-Project/releases/download/${FONT_VERSION}/PlangothicP1-Regular.allideo.ttf"
@@ -39,7 +41,7 @@ jobs:
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          repo_token: "${{ secrets.PAT }}"
           automatic_release_tag: "nightly-release"
           prerelease: true
           title: "Test build"

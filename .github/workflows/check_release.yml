@@ -16,7 +16,7 @@ jobs:
 
       - name: Check for New Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
           WORKFLOW_ID: main
         run: |
           echo "Checking for new releases..."
@@ -46,8 +46,8 @@ jobs:
             cat extra/changelog_latest.md >> extra/changelog.md
             printf "\n# $LATEST_RELEASE\nBump version to \`$LATEST_RELEASE\`.\n" > extra/changelog_latest.md
 
-            git config user.name "GitHub Actions"
-            git config user.email "actions@users.noreply.github.com"
+            git config user.name "lakejason0"
+            git config user.email "36039861+lakejason0@users.noreply.github.com"
             git commit -a -m "Bump version of Plangothic"
             git tag $LATEST_RELEASE
             git push origin $LATEST_RELEASE
