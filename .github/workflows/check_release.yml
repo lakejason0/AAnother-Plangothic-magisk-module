@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Check out this repository
+        uses: actions/checkout@v4  # Check out this repository
 
       - name: Check for New Release
         env:

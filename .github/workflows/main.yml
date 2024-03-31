@@ -1,13 +1,11 @@
 name: Upload zip
-on: 
-  push:
-  workflow_dispatch:
+on: [push, workflow_dispatch]
   
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Make release zip
       run: |
         FONT_VERSION=$(cat version.json | jq -r '.version')
@@ -22,7 +20,7 @@ jobs:
         mkdir -p build
         cp ../Plangothic-magisk-module.zip build/
         cp ../Plangothic-magisk-module.zip.sha256sum build/
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: Plangothic-magisk-module
         path: |
@@ -35,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/') != true
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: Plangothic-magisk-module
 
@@ -56,14 +54,14 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: Plangothic-magisk-module
 
       - name: Release Action
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             Plangothic-magisk-module.zip
