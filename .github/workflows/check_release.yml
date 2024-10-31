@@ -21,7 +21,7 @@ jobs:
         run: |
           echo "Checking for new releases..."
           # Use curl to fetch release data from the other repository
-          LATEST_RELEASE=$(curl -s https://api.github.com/repos/Fitzgerald-Porthmouth-Koenigsegg/Plangothic-Project/releases/latest | jq -r '.tag_name')
+          LATEST_RELEASE=$(curl -s https://api.github.com/repositories/358636775/releases/latest | jq -r '.tag_name')
 
           # Read the current version from version.json
           CURRENT_VERSION=$(cat version.json | jq -r '.version')
