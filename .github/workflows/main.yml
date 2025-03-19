@@ -11,10 +11,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.PAT }}
       run: |
         FONT_VERSION=$(cat version.json | jq -r '.version')
-        FONT_P1_URL="https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic-Project/releases/download/${FONT_VERSION}/PlangothicP1-Regular.allideo.ttf"
+        FONT_P1_URL="https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic-Project/releases/download/${FONT_VERSION}/PlangothicP1-Regular.ttf"
         FONT_P2_URL="https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic-Project/releases/download/${FONT_VERSION}/PlangothicP2-Regular.ttf"
         mkdir -p system/fonts
-        wget "$FONT_P1_URL" -O system/fonts/PlangothicP1-Regular.allideo.ttf
+        wget "$FONT_P1_URL" -O system/fonts/PlangothicP1-Regular.ttf
         wget "$FONT_P2_URL" -O system/fonts/PlangothicP2-Regular.ttf
         wget https://github.com/topjohnwu/Magisk/raw/master/scripts/module_installer.sh -O META-INF/com/google/android/update-binary
         zip -9 -x "*.git*" -x "extra/*" -x "extra" -r ../Plangothic-magisk-module.zip ./

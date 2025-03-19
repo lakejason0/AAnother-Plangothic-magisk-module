@@ -13,7 +13,7 @@ case "$FILEPATH" in
 esac
 mkdir -p $MODPATH$FILEPATH
 cp -af $MIRRORPATH$FILEPATH$FILE $MODPATH$SYSTEMFILEPATH$FILE
-sed -i 's/<\/familyset>/<family>\n<font weight="400" style="normal">PlangothicP1-Regular.allideo.ttf<\/font>\n<\/family>\n<family>\n<font weight="400" style="normal">PlangothicP2-Regular.ttf<\/font>\n<\/family>\n<\/familyset>/g' $MODPATH$SYSTEMFILEPATH$FILE
+sed -i 's/<\/familyset>/<family>\n<font weight="400" style="normal">PlangothicP1-Regular.ttf<\/font>\n<\/family>\n<family>\n<font weight="400" style="normal">PlangothicP2-Regular.ttf<\/font>\n<\/family>\n<\/familyset>/g' $MODPATH$SYSTEMFILEPATH$FILE
 fi
 done
 done
