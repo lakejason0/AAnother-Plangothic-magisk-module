@@ -35,3 +35,6 @@ Bump version to `V2.9.5771`.
 
 # V2.9.5777
 Bump version to `V2.9.5777`.
+
+# V2.9.5779
+Bump version to `V2.9.5779`.
